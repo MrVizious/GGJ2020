@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed;
+    [SerializeField]
+    private float speed;
     private Transform t;
+    private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,10 +17,32 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector2 goal = new Vector2(t.position.x + Input.GetAxis("Horizontal") * Time.deltaTime * speed, t.position.y + Input.GetAxis("Vertical") * Time.deltaTime * speed);
-        t.position = Vector2.MoveTowards(t.position, goal, speed);
+        GetInputs();
 
-        float rot_z = Mathf.Atan2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y")) * Mathf.Rad2Deg;
-        t.rotation = Quaternion.Euler(0f, 0f, rot_z - 180);
+
+        if (rightJoystickX != 0f || rightJoystickY != 0)
+        {
+            float rot_z = Mathf.Atan2(rightJoystickX, rightJoystickY) * Mathf.Rad2Deg;
+            t.rotation = Quaternion.Euler(0f, 0f, rot_z - 180);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        Movement();
+    }
+
+    private void Movement()
+    {
+        Vector2 goal = new Vector2(t.position.x + leftJoystickX * Time.deltaTime * speed, t.position.y + leftJoystickY * Time.deltaTime * speed);
+        t.position = Vector2.MoveTowards(t.position, goal, speed);
+    }
+
+    private void GetInputs()
+    {
+        leftJoystickX = Input.GetAxis("Horizontal");
+        leftJoystickY = Input.GetAxis("Vertical");
+        rightJoystickX = Input.GetAxis("Mouse X");
+        rightJoystickY = Input.GetAxis("Mouse Y");
     }
 }
