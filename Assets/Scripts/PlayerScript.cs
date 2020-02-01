@@ -46,7 +46,6 @@ public class PlayerScript : MonoBehaviour
 
     private void CheckGameOver()
     {
-        Debug.Log("Is Bullet Pool full? " + bulletPool.IsFull());
         if (bulletPool.IsFull() && currentHealth <= 1f) Die();
     }
 
@@ -80,7 +79,7 @@ public class PlayerScript : MonoBehaviour
         if (shootButtonDown && currentHealth > 1f && !IsWallAhead())
         {
             Shrink();
-            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.3f * currentHealth, transform.rotation);
+            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.35f * currentHealth, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
             bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
             bullet.GetComponent<BulletScript>().Shoot();
@@ -145,5 +144,11 @@ public class PlayerScript : MonoBehaviour
         invincible = false;
 
     }
+
+    public void MultiplySpeed(float multiplier)
+    {
+        speed *= multiplier;
+    }
+
 
 }
