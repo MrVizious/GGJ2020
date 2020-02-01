@@ -5,7 +5,7 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField]
-    private float speed, thrust;
+    private float speed, rotationSpeed, thrust;
     private bool leaving;
 
     private Rigidbody2D rb;
@@ -13,9 +13,8 @@ public class BulletScript : MonoBehaviour
     public Transform target;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
         t = GetComponent<Transform>();
     }
 
@@ -32,20 +31,13 @@ public class BulletScript : MonoBehaviour
             RotateTowardsTarget();
             rb.MovePosition(Vector2.Lerp(t.position, t.position + t.up, speed * Time.deltaTime));
         }
-
-
     }
 
-
-    private void OnEnable()
+    public void Shoot()
     {
         leaving = true;
+        if (rb == null) rb = rb = GetComponent<Rigidbody2D>();
         rb.AddForce(transform.up * thrust, ForceMode2D.Impulse);
-    }
-
-    private void OnDisable()
-    {
-        leaving = false;
     }
 
     private void RotateTowardsTarget()
@@ -53,7 +45,12 @@ public class BulletScript : MonoBehaviour
         Vector3 vectorToTarget = target.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
+    }
+
+    public void setTarget(Transform newTarget)
+    {
+        target = newTarget;
     }
 
 

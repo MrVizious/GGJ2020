@@ -71,7 +71,9 @@ public class PlayerScript : MonoBehaviour
             {
                 currentSize--;
                 t.localScale = new Vector3(currentSize, currentSize, t.localScale.z);
-                Instantiate(bulletPrefab, t.position, t.rotation);
+                GameObject bullet = Instantiate(bulletPrefab, t.position, t.rotation).gameObject;
+                bullet.GetComponent<BulletScript>().setTarget(transform);
+                bullet.GetComponent<BulletScript>().Shoot();
             }
         }
     }
