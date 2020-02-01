@@ -5,7 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/VicenteTests.unity
     guid: ffa56874b86279e439bb2d5ad29922b1
   - enabled: 1
