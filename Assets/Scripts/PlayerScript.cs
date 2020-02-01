@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
     private float speed;
@@ -40,9 +40,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Movement()
     {
+        //Movement
         Vector2 goal = new Vector2(t.position.x + leftJoystickX * Time.deltaTime * speed, t.position.y + leftJoystickY * Time.deltaTime * speed);
         rb.MovePosition(new Vector2(t.position.x + leftJoystickX * Time.deltaTime * speed, t.position.y + leftJoystickY * Time.deltaTime * speed));
 
+        //Rotation
         if (rightJoystickX != 0f || rightJoystickY != 0)
         {
             float rot_z = Mathf.Atan2(rightJoystickX, rightJoystickY) * Mathf.Rad2Deg;
