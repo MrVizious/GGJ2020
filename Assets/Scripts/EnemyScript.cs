@@ -7,16 +7,21 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]
     private int currentHealth, maxHealth;
     [SerializeField]
-    private float speed, rotationSpeed;
+    private float speed, rotationSpeed, spawnDistance;
     private Rigidbody2D rb;
     [SerializeField]
     Transform target;
+    [SerializeField]
+    private ObjectPool bulletPool;
+
+    LayerMask spawnMask;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
+        spawnMask = 1 << LayerMask.GetMask("Wall") << LayerMask.GetMask("Enemy");
     }
 
     // Update is called once per frame
@@ -53,11 +58,31 @@ public class EnemyScript : MonoBehaviour
         }
         else if (currentHealth == 0f)
         {
-            Debug.Log("TODO: Spawn little bullets to come back");
+            InstantiateBullets();
             Destroy(this.gameObject);
             return true;
         }
         return false;
+    }
+
+    public void InstantiateBullets()
+    {
+        for (int i = 0; i < maxHealth;)
+        {
+            Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * spawnDistance;
+            if (!IsObstacleInDirection(randomAngle))
+            {
+                GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * spawnDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
+                bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
+                bullet.GetComponent<BulletScript>().setTarget(target);
+                i++;
+            }
+        }
+    }
+
+    private bool IsObstacleInDirection(Vector2 randomAngle)
+    {
+        return Physics2D.Raycast(transform.position, randomAngle, spawnDistance, spawnMask);
     }
 
     public void Shrink()

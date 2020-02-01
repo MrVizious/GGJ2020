@@ -11,11 +11,13 @@ public class BulletScript : MonoBehaviour
     private Rigidbody2D rb;
     private Transform t;
     public Transform target;
+    [SerializeField]
+    private ObjectPool bulletPool;
 
     // Start is called before the first frame update
     void Start()
     {
-        t = GetComponent<Transform>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class BulletScript : MonoBehaviour
         else
         {
             RotateTowardsTarget();
-            rb.MovePosition(Vector2.Lerp(t.position, t.position + t.up, speed * Time.deltaTime));
+            rb.MovePosition(Vector2.Lerp(transform.position, transform.position + transform.up, speed * Time.deltaTime));
         }
     }
 
@@ -58,13 +60,18 @@ public class BulletScript : MonoBehaviour
         if (other.gameObject.tag.Equals("Player"))
         {
             other.gameObject.GetComponent<PlayerScript>().Heal();
-            Destroy(this.gameObject);
+            bulletPool.ReturnToPool(this.gameObject);
         }
         else if (other.gameObject.tag.Equals("Enemy"))
         {
             other.gameObject.GetComponent<EnemyScript>().Hurt();
-            Destroy(this.gameObject);
+            bulletPool.ReturnToPool(this.gameObject);
         }
+    }
+
+    public void setBulletPool(ObjectPool newPool)
+    {
+        bulletPool = newPool;
     }
 
 
