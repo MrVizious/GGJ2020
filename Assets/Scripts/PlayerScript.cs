@@ -10,7 +10,8 @@ public class PlayerScript : MonoBehaviour
     private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
     private bool shootButtonDown;
 
-    public Transform bulletPrefab;
+    [SerializeField]
+    private Transform bulletPrefab;
 
     [SerializeField]
     private int maxSize, currentSize;

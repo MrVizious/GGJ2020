@@ -64,7 +64,6 @@ public class BulletScript : MonoBehaviour
         {
             other.gameObject.GetComponent<EnemyScript>().Hurt();
             Destroy(this.gameObject);
-
         }
     }
 
