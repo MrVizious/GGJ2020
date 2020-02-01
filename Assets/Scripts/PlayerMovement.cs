@@ -9,11 +9,17 @@ public class PlayerMovement : MonoBehaviour
     private Transform t;
     private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
     private bool shootButtonDown;
+
+    public Transform bulletPrefab;
+
+    [SerializeField]
+    private int maxSize, currentSize;
     // Start is called before the first frame update
     void Start()
     {
         t = GetComponent<Transform>();
         shootButtonDown = false;
+        currentSize = maxSize;
     }
 
     // Update is called once per frame
@@ -57,7 +63,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (shootButtonDown)
         {
-            if (t.localScale.x > 1f) t.localScale -= new Vector3(1, 1, 0);
+            if (currentSize > 1f)
+            {
+                currentSize--;
+                t.localScale = new Vector3(currentSize, currentSize, t.localScale.z);
+                Instantiate(bulletPrefab, t.position, t.rotation);
+            }
         }
     }
 
