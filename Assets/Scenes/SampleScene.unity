@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 1982402463835450466, guid: 9a4cc3664ee74994e8c8e8a5df179020, type: 3}
-  poolSize: 10
+  poolSize: 15
 --- !u!1001 &5668622896201911882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -765,7 +765,9 @@ MonoBehaviour:
   maxHealth: 5
   speed: 3
   rotationSpeed: 2
+  spawnDistance: 1
   target: {fileID: 206359922}
+  bulletPool: {fileID: 1441810327}
 --- !u!50 &8037890040572972664
 Rigidbody2D:
   serializedVersion: 4

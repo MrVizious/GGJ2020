@@ -73,8 +73,8 @@ public class PlayerScript : MonoBehaviour
             Shrink();
             GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.25f * currentSize, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
+            bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
             bullet.GetComponent<BulletScript>().Shoot();
-
         }
     }
 
