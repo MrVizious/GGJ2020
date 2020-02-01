@@ -53,5 +53,19 @@ public class BulletScript : MonoBehaviour
         target = newTarget;
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            other.gameObject.GetComponent<PlayerScript>().Heal();
+            Destroy(this.gameObject);
+        }
+        else if (other.gameObject.tag.Equals("Enemy"))
+        {
+            other.gameObject.GetComponent<EnemyScript>().Hurt();
+            Destroy(this.gameObject);
+        }
+    }
+
 
 }
