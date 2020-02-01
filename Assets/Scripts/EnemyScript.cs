@@ -106,4 +106,12 @@ public class EnemyScript : MonoBehaviour
     {
         transform.localScale = new Vector3(currentHealth, currentHealth, transform.localScale.z);
     }
+
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            other.gameObject.GetComponent<PlayerScript>().Hurt();
+        }
+    }
 }

@@ -45,4 +45,9 @@ public class ObjectPool : MonoBehaviour
         go.SetActive(false);
         pool.Add(go);
     }
+
+    public bool IsFull()
+    {
+        return pool.Count == poolSize;
+    }
 }

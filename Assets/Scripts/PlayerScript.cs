@@ -8,7 +8,8 @@ public class PlayerScript : MonoBehaviour
     private float speed, maxSize, minSize;
     private Rigidbody2D rb;
     private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
-    private bool shootButtonDown;
+    [SerializeField]
+    private bool shootButtonDown, invincible;
 
     [SerializeField]
     private ObjectPool bulletPool;
@@ -25,6 +26,7 @@ public class PlayerScript : MonoBehaviour
         shootButtonDown = false;
         currentHealth = maxHealth;
         shootWallMask = LayerMask.GetMask("Wall");
+        invincible = false;
         FixSize();
     }
 
@@ -32,7 +34,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         GetInputs();
-
+        CheckGameOver();
         Shoot();
 
     }
@@ -40,6 +42,12 @@ public class PlayerScript : MonoBehaviour
     private void FixedUpdate()
     {
         Movement();
+    }
+
+    private void CheckGameOver()
+    {
+        Debug.Log("Is Bullet Pool full? " + bulletPool.IsFull());
+        if (bulletPool.IsFull() && currentHealth <= 1f) Die();
     }
 
     private void Movement()
@@ -72,7 +80,7 @@ public class PlayerScript : MonoBehaviour
         if (shootButtonDown && currentHealth > 1f && !IsWallAhead())
         {
             Shrink();
-            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.25f * currentHealth, transform.rotation);
+            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.3f * currentHealth, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
             bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
             bullet.GetComponent<BulletScript>().Shoot();
@@ -108,10 +116,34 @@ public class PlayerScript : MonoBehaviour
 
     private void FixSize()
     {
-        //transform.localScale = new Vector3(Mathf.Pow(Mathf.Sqrt(2f), currentSize) * baseSize, Mathf.Pow(Mathf.Sqrt(2f), currentSize) * baseSize, transform.localScale.z);
         float normalizedValue = Mathf.InverseLerp(1, maxHealth, currentHealth);
         float result = Mathf.Lerp(minSize, maxSize, normalizedValue);
         transform.localScale = new Vector3(result, result, transform.localScale.z);
+    }
+
+    public void Hurt()
+    {
+        if (!invincible)
+        {
+            if (currentHealth <= 1f) Die();
+            Debug.Log("You were hurt!");
+            Shrink();
+            StartCoroutine("InvincibleCountdown");
+        }
+    }
+
+    private void Die()
+    {
+        Debug.Log("You died!");
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator InvincibleCountdown()
+    {
+        invincible = true;
+        yield return new WaitForSeconds(1);
+        invincible = false;
+
     }
 
 }
