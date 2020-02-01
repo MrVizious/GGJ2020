@@ -11,7 +11,7 @@ public class PlayerScript : MonoBehaviour
     private bool shootButtonDown;
 
     [SerializeField]
-    private Transform bulletPrefab;
+    private ObjectPool bulletPool;
 
     [SerializeField]
     private int maxSize, currentSize;
@@ -71,7 +71,7 @@ public class PlayerScript : MonoBehaviour
         if (shootButtonDown && currentSize > 1f && !IsWallAhead())
         {
             Shrink();
-            GameObject bullet = Instantiate(bulletPrefab, transform.position + transform.up * 0.25f * currentSize, transform.rotation).gameObject;
+            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.25f * currentSize, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
             bullet.GetComponent<BulletScript>().Shoot();
 

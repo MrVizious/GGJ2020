@@ -610,6 +610,51 @@ PolygonCollider2D:
       - {x: 0.08086445, y: 0.038089525}
       - {x: 0.067505896, y: 0.06081378}
       - {x: 0.04421484, y: 0.07863938}
+--- !u!1 &1441810325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1441810326}
+  - component: {fileID: 1441810327}
+  m_Layer: 0
+  m_Name: BulletPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1441810326
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441810325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.2306142, y: -0.03156276, z: -77.145645}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1441810327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441810325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142d0ae2090310d4796afc66ffc75c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1982402463835450466, guid: 9a4cc3664ee74994e8c8e8a5df179020, type: 3}
+  poolSize: 10
 --- !u!1001 &5668622896201911882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -677,6 +722,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5668622895997125434, guid: c91933a72db2240459a95a47ae5084e9,
+        type: 3}
+      propertyPath: bulletPool
+      value: 
+      objectReference: {fileID: 1441810327}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c91933a72db2240459a95a47ae5084e9, type: 3}
 --- !u!1 &8037890040572972644

@@ -25,6 +25,12 @@ public class ObjectPool : MonoBehaviour
 
     public GameObject InstantiateFromPool(Vector2 pos, Quaternion rot)
     {
+        if (pool.Count < 1f)
+        {
+            pool.Add(Instantiate(prefab));
+            pool[pool.Count - 1].SetActive(false);
+            poolSize++;
+        }
         GameObject newObject = pool[pool.Count - 1];
         newObject.SetActive(true);
         newObject.transform.position = pos;
