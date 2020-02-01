@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float speed;
     private Transform t;
+    private Rigidbody2D rb;
     private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
     private bool shootButtonDown;
 
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         t = GetComponent<Transform>();
         shootButtonDown = false;
         currentSize = maxSize;
@@ -39,7 +41,7 @@ public class PlayerMovement : MonoBehaviour
     private void Movement()
     {
         Vector2 goal = new Vector2(t.position.x + leftJoystickX * Time.deltaTime * speed, t.position.y + leftJoystickY * Time.deltaTime * speed);
-        t.position = Vector2.MoveTowards(t.position, goal, speed);
+        rb.MovePosition(new Vector2(t.position.x + leftJoystickX * Time.deltaTime * speed, t.position.y + leftJoystickY * Time.deltaTime * speed));
 
         if (rightJoystickX != 0f || rightJoystickY != 0)
         {
