@@ -23,37 +23,37 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 1.4016227
-        outSlope: 1.4016227
+        inSlope: 2.4958525
+        outSlope: 2.4958525
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.10008638
+        outWeight: 0.10996126
       - serializedVersion: 3
-        time: 0.98333335
+        time: 1
         value: 0
-        inSlope: -1.6969593
-        outSlope: -1.6969593
+        inSlope: -2.6595502
+        outSlope: -2.6595502
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.077775456
-        outWeight: 0.33333334
+        inWeight: 0.33333334
+        outWeight: 0.11500716
       - serializedVersion: 3
         time: 2
         value: 1
-        inSlope: 1.6108073
-        outSlope: 1.6108073
+        inSlope: 2.8391478
+        outSlope: 2.8391478
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.09334756
+        inWeight: 0.08887327
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
     path: 
-    classID: 212
-    script: {fileID: 0}
+    classID: 114
+    script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_PPtrCurves: []
   m_SampleRate: 60
   m_WrapMode: 0
@@ -65,8 +65,8 @@ AnimationClip:
     - serializedVersion: 2
       path: 0
       attribute: 304273561
-      script: {fileID: 0}
-      typeID: 212
+      script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+      typeID: 114
       customType: 0
       isPPtrCurve: 0
     pptrCurveMapping: []
@@ -97,37 +97,37 @@ AnimationClip:
       - serializedVersion: 3
         time: 0
         value: 1
-        inSlope: 1.4016227
-        outSlope: 1.4016227
+        inSlope: 2.4958525
+        outSlope: 2.4958525
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.10008638
+        outWeight: 0.10996126
       - serializedVersion: 3
-        time: 0.98333335
+        time: 1
         value: 0
-        inSlope: -1.6969593
-        outSlope: -1.6969593
+        inSlope: -2.6595502
+        outSlope: -2.6595502
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.077775456
-        outWeight: 0.33333334
+        inWeight: 0.33333334
+        outWeight: 0.11500716
       - serializedVersion: 3
         time: 2
         value: 1
-        inSlope: 1.6108073
-        outSlope: 1.6108073
+        inSlope: 2.8391478
+        outSlope: 2.8391478
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.09334756
+        inWeight: 0.08887327
         outWeight: 0.33333334
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_Color.a
     path: 
-    classID: 212
-    script: {fileID: 0}
+    classID: 114
+    script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
