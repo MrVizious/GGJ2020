@@ -727,6 +727,11 @@ PrefabInstance:
       propertyPath: bulletPool
       value: 
       objectReference: {fileID: 1441810327}
+    - target: {fileID: 5668622896714854577, guid: c91933a72db2240459a95a47ae5084e9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c91933a72db2240459a95a47ae5084e9, type: 3}
 --- !u!1 &8037890040572972644

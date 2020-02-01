@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
-    private float speed;
+    private float speed, maxSize, minSize;
     private Rigidbody2D rb;
     private float rightJoystickX, rightJoystickY, leftJoystickX, leftJoystickY;
     private bool shootButtonDown;
@@ -14,7 +14,7 @@ public class PlayerScript : MonoBehaviour
     private ObjectPool bulletPool;
 
     [SerializeField]
-    private int maxSize, currentSize;
+    private int maxHealth, currentHealth;
 
     LayerMask shootWallMask;
 
@@ -23,8 +23,9 @@ public class PlayerScript : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         shootButtonDown = false;
-        currentSize = maxSize;
+        currentHealth = maxHealth;
         shootWallMask = LayerMask.GetMask("Wall");
+        FixSize();
     }
 
     // Update is called once per frame
@@ -68,10 +69,10 @@ public class PlayerScript : MonoBehaviour
 
     private void Shoot()
     {
-        if (shootButtonDown && currentSize > 1f && !IsWallAhead())
+        if (shootButtonDown && currentHealth > 1f && !IsWallAhead())
         {
             Shrink();
-            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.25f * currentSize, transform.rotation);
+            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.25f * currentHealth, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
             bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
             bullet.GetComponent<BulletScript>().Shoot();
@@ -80,12 +81,12 @@ public class PlayerScript : MonoBehaviour
 
     private bool IsWallAhead()
     {
-        return Physics2D.Raycast(transform.position, transform.up, 0.3f * currentSize, shootWallMask);
+        return Physics2D.Raycast(transform.position, transform.up, 0.3f * currentHealth, shootWallMask);
     }
 
     public bool Heal()
     {
-        if (currentSize < maxSize)
+        if (currentHealth < maxHealth)
         {
             Grow();
             return true;
@@ -95,19 +96,22 @@ public class PlayerScript : MonoBehaviour
 
     public void Shrink()
     {
-        currentSize--;
+        currentHealth--;
         FixSize();
     }
 
     public void Grow()
     {
-        currentSize++;
+        currentHealth++;
         FixSize();
     }
 
     private void FixSize()
     {
-        transform.localScale = new Vector3(currentSize, currentSize, transform.localScale.z);
+        //transform.localScale = new Vector3(Mathf.Pow(Mathf.Sqrt(2f), currentSize) * baseSize, Mathf.Pow(Mathf.Sqrt(2f), currentSize) * baseSize, transform.localScale.z);
+        float normalizedValue = Mathf.InverseLerp(1, maxHealth, currentHealth);
+        float result = Mathf.Lerp(minSize, maxSize, normalizedValue);
+        transform.localScale = new Vector3(result, result, transform.localScale.z);
     }
 
 }
