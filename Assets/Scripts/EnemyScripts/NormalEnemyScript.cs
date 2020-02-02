@@ -86,7 +86,7 @@ public class NormalEnemyScript : EnemyScript
                 if (!IsObstacleInDirection(randomAngle, bulletsDistance, customMask))
                 {
                     appeared = true;
-                    GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * bulletsDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
+                    GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
                     bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
                     bullet.GetComponent<BulletScript>().setTarget(target);
                     i++;

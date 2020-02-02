@@ -11,6 +11,7 @@ public class ObjectPool : MonoBehaviour
     [SerializeField]
     private float scale;
     private List<GameObject> pool;
+    private int killedEnemies;
     private void Awake()
     {
         InitPool();
@@ -24,6 +25,7 @@ public class ObjectPool : MonoBehaviour
             pool[i].transform.localScale = new Vector3(scale, scale, 0f);
             pool[i].SetActive(false);
         }
+        killedEnemies = 0;
     }
 
     public GameObject InstantiateFromPool(Vector2 pos, Quaternion rot)
@@ -53,5 +55,10 @@ public class ObjectPool : MonoBehaviour
     public bool IsFull()
     {
         return pool.Count == poolSize;
+    }
+
+    public int getNumberOut()
+    {
+        return poolSize - pool.Count;
     }
 }

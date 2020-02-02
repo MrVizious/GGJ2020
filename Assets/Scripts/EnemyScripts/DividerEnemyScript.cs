@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FastEnemyScript : EnemyScript
+public class DividerEnemyScript : EnemyScript
 {
     [SerializeField]
     private int currentHealth, maxHealth;
@@ -10,7 +10,7 @@ public class FastEnemyScript : EnemyScript
     private float speed, rotationSpeed, freezeTime;
     private Rigidbody2D rb;
     private Transform target;
-    private ObjectPool bulletPool, normalEnemiesPool;
+    private ObjectPool bulletPool, weakEnemiesPool;
 
     private bool frozen;
 
@@ -58,15 +58,14 @@ public class FastEnemyScript : EnemyScript
     public override bool Hurt()
     {
         currentHealth--;
-        if (currentHealth > 4f)
+        if (currentHealth > (int)maxHealth / 2f)
         {
             Debug.Log("Current life is: " + currentHealth);
         }
-        else if (currentHealth == 4f)
+        else if (currentHealth == (int)maxHealth / 2f)
         {
             GetComponent<Collider2D>().enabled = false;
             Divide();
-            Destroy(this.gameObject);
             return true;
         }
         return false;
@@ -76,24 +75,24 @@ public class FastEnemyScript : EnemyScript
     {
         GetComponent<Collider2D>().enabled = false;
         LayerMask customMask = (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.GetMask("Bullet")) | (1 << LayerMask.GetMask("Enemy")) | (1 << LayerMask.GetMask("Player"));
-        for (int i = 0; i < 2;)
+
+
+        bool appeared = false;
+        while (!appeared)
         {
-            bool appeared = false;
-            while (!appeared)
+            float enemiesDistance = Random.Range(0.5f, 1.5f);
+            Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * enemiesDistance;
+            if (!IsObstacleInDirection(randomAngle, enemiesDistance, customMask))
             {
-                float enemiesDistance = Random.Range(0.5f, 1.5f);
-                Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * enemiesDistance;
-                if (!IsObstacleInDirection(randomAngle, enemiesDistance, customMask))
-                {
-                    appeared = true;
-                    GameObject enemy = normalEnemiesPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * enemiesDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
-                    enemy.GetComponent<NormalEnemyScript>().setTarget(target);
-                    enemy.GetComponent<NormalEnemyScript>().setBulletPool(bulletPool);
-                    i++;
-                }
-                else Debug.Log("Obstacle!");
+                appeared = true;
+                maxHealth /= 2;
+                currentHealth /= 2;
+
+                Instantiate(this.gameObject, transform.position + (Vector3)randomAngle, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
             }
+            else Debug.Log("Obstacle!");
         }
+
         GetComponent<Collider2D>().enabled = true;
     }
 
@@ -103,26 +102,29 @@ public class FastEnemyScript : EnemyScript
         return Physics2D.Raycast(transform.position, angle, distance, mask);
     }
 
-    public void Shrink()
+    public void InstantiateBullets()
     {
-        currentHealth--;
-        FixSize();
-    }
-
-    public bool Grow()
-    {
-        if (currentHealth < maxHealth)
+        GetComponent<Collider2D>().enabled = false;
+        LayerMask customMask = (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.GetMask("Bullet")) | (1 << LayerMask.GetMask("Enemy")) | (1 << LayerMask.GetMask("Player"));
+        for (int i = 0; i < maxHealth;)
         {
-            currentHealth++;
-            Shrink();
-            return true;
+            bool appeared = false;
+            while (!appeared)
+            {
+                float bulletsDistance = Random.Range(0.5f, 1.5f);
+                Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * bulletsDistance;
+                if (!IsObstacleInDirection(randomAngle, bulletsDistance, customMask))
+                {
+                    appeared = true;
+                    GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
+                    bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
+                    bullet.GetComponent<BulletScript>().setTarget(target);
+                    i++;
+                }
+                else Debug.Log("Obstacle!");
+            }
         }
-        return false;
-    }
-
-    private void FixSize()
-    {
-        transform.localScale = new Vector3(currentHealth, currentHealth, transform.localScale.z);
+        GetComponent<Collider2D>().enabled = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other)

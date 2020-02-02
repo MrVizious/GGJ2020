@@ -23,7 +23,7 @@ public class StupidEnemyScript : MonoBehaviour
 
     private void Die()
     {
-        Debug.Log("This cell died!", this);
+        Destroy(this.gameObject);
     }
 
 }

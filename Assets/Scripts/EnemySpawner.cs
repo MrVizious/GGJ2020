@@ -5,14 +5,12 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField]
-    private int killsGoal;
+    private int killsGoal, count;
     public ObjectPool enemyPool, bulletPool;
     [SerializeField]
     private float baseSpawnTime;
     [SerializeField]
     private Transform target;
-
-    private int currentKills, enemiesOut;
 
     // Start is called before the first frame update
     void Start()
@@ -25,9 +23,14 @@ public class EnemySpawner : MonoBehaviour
         while (true)
         {
             Spawn();
-            yield return new WaitForSeconds(baseSpawnTime + enemiesOut * baseSpawnTime * 0.3f);
+            yield return new WaitForSeconds(baseSpawnTime);
 
         }
+    }
+
+    private void Update()
+    {
+        if (count - enemyPool.getNumberOut() >= killsGoal) Debug.Log("Level won!");
     }
 
     private void Spawn()
@@ -44,7 +47,6 @@ public class EnemySpawner : MonoBehaviour
                 GameObject enemy = enemyPool.InstantiateFromPool(target.position + (Vector3)randomAngle, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
                 enemy.GetComponent<EnemyScript>().setTarget(target);
                 enemy.GetComponent<EnemyScript>().setBulletPool(bulletPool);
-                enemiesOut++;
             }
             else Debug.Log("Obstacle!");
         }
