@@ -22,19 +22,24 @@ public class LoadingScreen : MonoBehaviour
         {
             loadscreen.SetActive(true);
             //SceneManager.Load(levelToLoad)
-            StartCoroutine(LoadLevelAsync());
+            StartCoroutine(LoadLevel());
 
         }
     }
 
-    private IEnumerator LoadLevelAsync()
+    private IEnumerator LoadLevel()
     {
+        /*
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelToLoad);
 
         while(!asyncLoad.isDone)
         {
             yield return null;
         }
+        */
+
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene(levelToLoad);
 
 
     }
