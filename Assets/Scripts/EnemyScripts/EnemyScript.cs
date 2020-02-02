@@ -7,12 +7,14 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]
     private int currentHealth, maxHealth;
     [SerializeField]
-    private float speed, rotationSpeed, spawnDistance;
+    private float speed, rotationSpeed, spawnDistance, freezeTime;
     private Rigidbody2D rb;
     [SerializeField]
     Transform target;
     [SerializeField]
     private ObjectPool bulletPool;
+
+    private bool frozen;
 
     LayerMask spawnMask;
 
@@ -22,10 +24,16 @@ public class EnemyScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         spawnMask = 1 << LayerMask.GetMask("Wall") << LayerMask.GetMask("Enemy");
+        frozen = false;
     }
 
     // Update is called once per frame
     void FixedUpdate()
+    {
+        if (!frozen) Movement();
+    }
+
+    private void Movement()
     {
         RotateTowardsTarget();
         rb.MovePosition(Vector2.Lerp(transform.position, transform.position + transform.up, speed * Time.deltaTime));
@@ -113,5 +121,17 @@ public class EnemyScript : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerScript>().Hurt();
         }
+    }
+
+    public void Freeze(float time)
+    {
+        frozen = true;
+        StartCoroutine("FrozenCountdown");
+    }
+
+    IEnumerator FrozenCountdown()
+    {
+        yield return new WaitForSeconds(freezeTime);
+        frozen = false;
     }
 }

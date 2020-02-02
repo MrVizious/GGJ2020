@@ -30,7 +30,7 @@ public class RadioPowerUp : MonoBehaviour
         while (chargePercentage < 1f)
         {
             chargePercentage = Time.time - initTime;
-            Debug.Log(chargePercentage);
+            yield return 0;
         }
         chargePercentage = 1f;
         yield return null;
