@@ -266,6 +266,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1445826199387680935, guid: 6737b7e321534425bbc7f4d012961230,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 6.6666665
+      objectReference: {fileID: 0}
+    - target: {fileID: 1445826199387680935, guid: 6737b7e321534425bbc7f4d012961230,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 6.6666665
+      objectReference: {fileID: 0}
     - target: {fileID: 1445826199387680953, guid: 6737b7e321534425bbc7f4d012961230,
         type: 3}
       propertyPath: m_Name
@@ -284,6 +294,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bullet_with_anim
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083961180299567411, guid: 88399c4b538924d63ae07ecbad866a99,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083961180299567411, guid: 88399c4b538924d63ae07ecbad866a99,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 3.3341472
+      objectReference: {fileID: 0}
+    - target: {fileID: 7083961180299567411, guid: 88399c4b538924d63ae07ecbad866a99,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 3.3333335
       objectReference: {fileID: 0}
     - target: {fileID: 7083961180299567420, guid: 88399c4b538924d63ae07ecbad866a99,
         type: 3}
