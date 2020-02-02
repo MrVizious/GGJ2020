@@ -9,7 +9,7 @@ public class FastEnemyScript : EnemyScript
     [SerializeField]
     private float speed, rotationSpeed, freezeTime;
     private Rigidbody2D rb;
-    Transform target;
+    private Transform target;
     private ObjectPool bulletPool, normalEnemiesPool;
 
     private bool frozen;
@@ -87,8 +87,8 @@ public class FastEnemyScript : EnemyScript
                 {
                     appeared = true;
                     GameObject enemy = normalEnemiesPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * enemiesDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
-                    enemy.GetComponent<NormalEnemyScript>().target = target;
-                    enemy.GetComponent<NormalEnemyScript>().bulletPool = bulletPool;
+                    enemy.GetComponent<NormalEnemyScript>().setTarget(target);
+                    enemy.GetComponent<NormalEnemyScript>().setBulletPool(bulletPool);
                     i++;
                 }
                 else Debug.Log("Obstacle!");

@@ -79,7 +79,7 @@ public class PlayerScript : MonoBehaviour
         if (shootButtonDown && currentHealth > 1f && !IsWallAhead())
         {
             Shrink();
-            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.35f * currentHealth, transform.rotation);
+            GameObject bullet = bulletPool.InstantiateFromPool(transform.position + transform.up * 0.05f * currentHealth, transform.rotation);
             bullet.GetComponent<BulletScript>().setTarget(transform);
             bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
             bullet.GetComponent<BulletScript>().Shoot();

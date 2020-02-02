@@ -17,21 +17,16 @@ public class EnemySpawner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine("Spawn");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        StartCoroutine("SpawnLoop");
     }
 
     IEnumerator SpawnLoop()
     {
         while (true)
         {
-            yield return new WaitForSeconds(baseSpawnTime * enemiesOut);
             Spawn();
+            yield return new WaitForSeconds(baseSpawnTime + enemiesOut * baseSpawnTime * 0.3f);
+
         }
     }
 
@@ -41,7 +36,7 @@ public class EnemySpawner : MonoBehaviour
         bool appeared = false;
         while (!appeared)
         {
-            float enemyDistance = Random.Range(0.5f, 1.5f);
+            float enemyDistance = Random.Range(2f, 4f);
             Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * enemyDistance;
             if (!IsObstacleInDirection(randomAngle, enemyDistance, customMask))
             {

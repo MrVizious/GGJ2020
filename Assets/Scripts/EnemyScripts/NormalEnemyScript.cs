@@ -9,8 +9,8 @@ public class NormalEnemyScript : EnemyScript
     [SerializeField]
     private float speed, rotationSpeed, freezeTime;
     private Rigidbody2D rb;
-    public Transform target;
-    public ObjectPool bulletPool;
+    private Transform target;
+    private ObjectPool bulletPool;
 
     private bool frozen;
 
@@ -135,6 +135,7 @@ public class NormalEnemyScript : EnemyScript
 
     public void Freeze(float time)
     {
+        freezeTime = time;
         frozen = true;
         StartCoroutine("FrozenCountdown");
     }
