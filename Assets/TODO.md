@@ -9,7 +9,6 @@ UI:
 - Iconos
 - Barra de carga (implementar)
 - Titulo nivel rollo Isaac
-- Pausa
 - Menu principal
 
 Enemigos: (matar un número determinado)
