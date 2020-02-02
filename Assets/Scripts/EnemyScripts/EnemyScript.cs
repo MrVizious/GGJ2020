@@ -9,4 +9,5 @@ public abstract class EnemyScript : MonoBehaviour
     public abstract bool Hurt();
     public abstract void setTarget(Transform t);
     public abstract void setBulletPool(ObjectPool o);
+    public abstract void Freeze(float t);
 }

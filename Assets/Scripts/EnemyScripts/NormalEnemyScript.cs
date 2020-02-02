@@ -45,15 +45,6 @@ public class NormalEnemyScript : EnemyScript
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
     }
 
-    public bool Heal()
-    {
-        if (currentHealth < maxHealth)
-        {
-            Grow();
-            return true;
-        }
-        return false;
-    }
 
     public override bool Hurt()
     {
@@ -103,27 +94,6 @@ public class NormalEnemyScript : EnemyScript
         return Physics2D.Raycast(transform.position, angle, distance, mask);
     }
 
-    public void Shrink()
-    {
-        currentHealth--;
-        FixSize();
-    }
-
-    public bool Grow()
-    {
-        if (currentHealth < maxHealth)
-        {
-            currentHealth++;
-            Shrink();
-            return true;
-        }
-        return false;
-    }
-
-    private void FixSize()
-    {
-        transform.localScale = new Vector3(currentHealth, currentHealth, transform.localScale.z);
-    }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
@@ -133,7 +103,7 @@ public class NormalEnemyScript : EnemyScript
         }
     }
 
-    public void Freeze(float time)
+    public override void Freeze(float time)
     {
         freezeTime = time;
         frozen = true;

@@ -165,7 +165,7 @@ public class CleverEnemyScript : EnemyScript
         }
     }
 
-    public void Freeze(float time)
+    public override void Freeze(float time)
     {
         freezeTime = time;
         frozen = true;
@@ -177,7 +177,6 @@ public class CleverEnemyScript : EnemyScript
         yield return new WaitForSeconds(freezeTime);
         frozen = false;
     }
-
     public override void setTarget(Transform t) { target = t; }
     public override void setBulletPool(ObjectPool o) { bulletPool = o; }
 }

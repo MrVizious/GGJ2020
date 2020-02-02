@@ -9,8 +9,6 @@ public class RadioPowerUp : MonoBehaviour
     // Start is called before the first frame update
     [SerializeField]
     private GameObject radioWave;
-    [SerializeField]
-    private float waveScaleMultiplier;
     private bool isIncreasing;
     void Start()
     {
@@ -20,13 +18,12 @@ public class RadioPowerUp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetButtonDown("Fire2") && chargePercentage >= 1f)
-        if (Input.GetKeyDown(KeyCode.R) && chargePercentage >= 1f)
+        if (Input.GetButtonDown("Fire2") && chargePercentage >= 1f)
         {
             chargePercentage = 0f;
             Debug.Log("Radio Activated!");
-            ActivateRadioWave();
             StartCoroutine("Timer");
+            Instantiate(radioWave, transform.position, transform.rotation);
         }
     }
 
@@ -41,22 +38,5 @@ public class RadioPowerUp : MonoBehaviour
         }
         chargePercentage = 1f;
         yield return null;
-    }
-
-    void ActivateRadioWave()
-    {
-        isIncreasing = true;
-        StartCoroutine("TimerScale");
-
-        while (isIncreasing)
-        {
-            radioWave.transform.localScale = radioWave.transform.localScale * waveScaleMultiplier;
-        }
-    }
-
-    IEnumerator TimerScale()
-    {
-        yield return new WaitForSeconds(3f);
-        isIncreasing = false;
     }
 }

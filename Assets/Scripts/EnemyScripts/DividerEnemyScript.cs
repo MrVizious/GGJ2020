@@ -45,15 +45,7 @@ public class DividerEnemyScript : EnemyScript
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
     }
 
-    public bool Heal()
-    {
-        if (currentHealth < maxHealth)
-        {
-            Grow();
-            return true;
-        }
-        return false;
-    }
+
 
     public override bool Hurt()
     {
@@ -135,8 +127,10 @@ public class DividerEnemyScript : EnemyScript
         }
     }
 
-    public void Freeze(float time)
+
+    public override void Freeze(float time)
     {
+        freezeTime = time;
         frozen = true;
         StartCoroutine("FrozenCountdown");
     }
