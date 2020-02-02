@@ -22,7 +22,7 @@ TagManager:
   - Enemy
   - Bullet
   - Background
-  - 
+  - UIBars
   - 
   - 
   - 
@@ -62,6 +62,9 @@ TagManager:
     locked: 0
   - name: HUD
     uniqueID: 2748563381
+    locked: 0
+  - name: UIBars
+    uniqueID: 389101909
     locked: 0
   - name: UI
     uniqueID: 1710706231

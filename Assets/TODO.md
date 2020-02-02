@@ -1,20 +1,8 @@
 Animaciones:
 
-
-- Onda expansiva
-
 UI:
 
 - Barra de carga (implementar)
-- Titulo nivel rollo Isaac
-
-Enemigos: (matar un número determinado)
-
-- Spawn desde el principio
-- Spawn alrededor (killing kolors)
-- Enemigos que se dividen [pecho II]
-- Enemigos que no van directamente a por ti [pulmón]
-- Enemigos rápidos [pancreas]
 
 
 EN EL LOADING SCREEN, LA SIGUIENTE PANTALLA QUE TIENE QUE CARGAR LA ELIGE EL SCENEMANAGER
