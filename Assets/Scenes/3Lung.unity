@@ -972,7 +972,6 @@ MonoBehaviour:
   speed: 3
   rotationSpeed: 7
   spawnDistance: 1
-  maxDistanceToTarget: 2
   target: {fileID: 2094478792}
   bulletPool: {fileID: 1848814314}
 --- !u!95 &2432896018991129749
@@ -1002,7 +1001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2432896018991129747}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.42, y: -2.21, z: 0}
+  m_LocalPosition: {x: 0.78, y: -2.14, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

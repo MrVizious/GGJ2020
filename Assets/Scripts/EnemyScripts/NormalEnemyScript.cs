@@ -23,7 +23,7 @@ public class NormalEnemyScript : EnemyScript
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
-        spawnMask = 1 << LayerMask.GetMask("Wall") << LayerMask.GetMask("Enemy");
+        spawnMask = ~((1 << LayerMask.GetMask("Wall")) | (1 << LayerMask.GetMask("Enemy")));
         frozen = false;
     }
 
@@ -66,6 +66,7 @@ public class NormalEnemyScript : EnemyScript
         }
         else if (currentHealth == 0f)
         {
+            GetComponent<Collider2D>().enabled = false;
             InstantiateBullets();
             Destroy(this.gameObject);
             return true;

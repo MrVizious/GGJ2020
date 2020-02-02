@@ -7,7 +7,7 @@ public class CleverEnemyScript : EnemyScript
     [SerializeField]
     private int currentHealth, maxHealth;
     [SerializeField]
-    private float speed, rotationSpeed, spawnDistance, maxDistanceToTarget;
+    private float speed, rotationSpeed, spawnDistance;
     private float freezeTime, targetDistance;
     private Rigidbody2D rb;
     [SerializeField]
@@ -17,20 +17,20 @@ public class CleverEnemyScript : EnemyScript
 
     private bool frozen;
 
-    LayerMask spawnMask;
+    int spawnMask;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
-        spawnMask = 1 << LayerMask.GetMask("Wall") << LayerMask.GetMask("Enemy");
+        spawnMask = /*~((1 << LayerMask.GetMask("Wall")) | (1 << LayerMask.GetMask("Enemy")));*/(1 << LayerMask.GetMask("Wall"));
         frozen = false;
     }
 
     private void OnEnable()
     {
-        targetDistance = Random.Range(-maxDistanceToTarget, maxDistanceToTarget);
+        targetDistance = Random.Range(-7f, 7f);
     }
 
     // Update is called once per frame
@@ -47,18 +47,7 @@ public class CleverEnemyScript : EnemyScript
 
     private void RotateTowardsTarget()
     {
-        Vector3 vectorToTarget;
-        if (Mathf.Abs(Vector2.Distance(target.position, transform.position)) < maxDistanceToTarget / 3f)
-        {
-            vectorToTarget = target.position - transform.position;
-        }
-        else
-        {
-            vectorToTarget = (target.position + target.up * targetDistance) - transform.position;
-        }
-        Debug.DrawRay(transform.position, vectorToTarget, Color.green, 0.2f);
-        //Debug.DrawRay(transform.position, transform.up, Color.white, 0.2f);
-
+        Vector3 vectorToTarget = target.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
@@ -80,14 +69,35 @@ public class CleverEnemyScript : EnemyScript
         if (currentHealth > 0f)
         {
             Debug.Log("Current life is: " + currentHealth);
+            Teleport();
         }
         else if (currentHealth == 0f)
         {
+            GetComponent<Collider2D>().enabled = false;
             InstantiateBullets();
             Destroy(this.gameObject);
             return true;
         }
         return false;
+    }
+
+    private void Teleport()
+    {
+        GetComponent<Collider2D>().enabled = false;
+        LayerMask customMask = (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.GetMask("Bullet")) | (1 << LayerMask.GetMask("Enemy")) | (1 << LayerMask.GetMask("Player"));
+        bool teleported = false;
+        while (!teleported)
+        {
+            float teleportDistance = Random.Range(3f, 7f);
+            Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * teleportDistance;
+            if (!IsObstacleInDirection(randomAngle, teleportDistance, customMask))
+            {
+                teleported = true;
+                transform.position += (Vector3)randomAngle;
+            }
+            else Debug.Log("Obstacle!");
+        }
+        //GetComponent<Collider2D>().enabled = true;
     }
 
     public void InstantiateBullets()
@@ -102,12 +112,19 @@ public class CleverEnemyScript : EnemyScript
                 bullet.GetComponent<BulletScript>().setTarget(target);
                 i++;
             }
+            else Debug.Log("Obstacle!");
         }
     }
 
-    private bool IsObstacleInDirection(Vector2 randomAngle)
+    private bool IsObstacleInDirection(Vector2 angle)
     {
-        return Physics2D.Raycast(transform.position, randomAngle, spawnDistance, spawnMask);
+        return Physics2D.Raycast(transform.position, angle, spawnDistance, spawnMask);
+    }
+
+    private bool IsObstacleInDirection(Vector2 angle, float distance, LayerMask mask)
+    {
+        Debug.DrawRay(transform.position, angle, Color.green, distance);
+        return Physics2D.Raycast(transform.position, angle, distance, mask);
     }
 
     public void Shrink()
