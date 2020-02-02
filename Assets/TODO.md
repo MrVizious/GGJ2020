@@ -1,7 +1,6 @@
 Animaciones:
 
-- Muerte enemigo [santi]
-- Curarse [santi]
+
 - Onda expansiva
 
 UI:
