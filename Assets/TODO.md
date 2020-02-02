@@ -1,12 +1,12 @@
 Animaciones:
 
 - Muerte enemigo
-- Curarse
-- Onda expansiva
+- Curarse [santi]
+- Onda expansiva [ferran]
 
 UI:
 
-- Iconos
+- Iconos [ferran]
 - Barra de carga (implementar)
 - Titulo nivel rollo Isaac
 - Menu principal
