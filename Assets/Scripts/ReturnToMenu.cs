@@ -8,7 +8,7 @@ public class ReturnToMenu : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown("joystick button 9"))
+        if (Input.GetButtonDown("Cross"))
         {
             SceneManager.LoadScene("Menu");
              print ("it just works");

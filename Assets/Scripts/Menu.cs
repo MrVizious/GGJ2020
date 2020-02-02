@@ -5,19 +5,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
-
-    public GameObject Jugar, Salirs;
-    public bool ON, Mute;
-   
-
-
-    public void aPlay()
+    private void Update()
     {
-        SceneManager.LoadScene("SampleScene");
-    }
-
-    public void aExit()
-    {
-        Application.Quit();
-    }   
+        if (Input.GetButtonDown("Cross"))
+        {
+            SceneManager.LoadScene("1Petri");
+        }
+        if (Input.GetButtonDown("Circle"))
+        {
+            Application.Quit();
+        }
+    } 
 }
