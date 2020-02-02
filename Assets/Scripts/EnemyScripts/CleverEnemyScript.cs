@@ -167,6 +167,7 @@ public class CleverEnemyScript : EnemyScript
 
     public void Freeze(float time)
     {
+        freezeTime = time;
         frozen = true;
         StartCoroutine("FrozenCountdown");
     }

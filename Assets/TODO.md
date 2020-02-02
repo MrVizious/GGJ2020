@@ -1,6 +1,6 @@
 Animaciones:
 
-- Muerte enemigo
+- Muerte enemigo [santi]
 - Curarse [santi]
 - Onda expansiva [ferran]
 
