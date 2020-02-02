@@ -7,12 +7,10 @@ public class NormalEnemyScript : EnemyScript
     [SerializeField]
     private int currentHealth, maxHealth;
     [SerializeField]
-    private float speed, rotationSpeed, spawnDistance, freezeTime;
+    private float speed, rotationSpeed, freezeTime;
     private Rigidbody2D rb;
-    [SerializeField]
-    Transform target;
-    [SerializeField]
-    private ObjectPool bulletPool;
+    public Transform target;
+    public ObjectPool bulletPool;
 
     private bool frozen;
 
@@ -76,22 +74,33 @@ public class NormalEnemyScript : EnemyScript
 
     public void InstantiateBullets()
     {
+        GetComponent<Collider2D>().enabled = false;
+        LayerMask customMask = (1 << LayerMask.NameToLayer("Wall")) | (1 << LayerMask.GetMask("Bullet")) | (1 << LayerMask.GetMask("Enemy")) | (1 << LayerMask.GetMask("Player"));
         for (int i = 0; i < maxHealth;)
         {
-            Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * spawnDistance;
-            if (!IsObstacleInDirection(randomAngle))
+            bool appeared = false;
+            while (!appeared)
             {
-                GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * spawnDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
-                bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
-                bullet.GetComponent<BulletScript>().setTarget(target);
-                i++;
+                float bulletsDistance = Random.Range(0.5f, 1.5f);
+                Vector2 randomAngle = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * bulletsDistance;
+                if (!IsObstacleInDirection(randomAngle, bulletsDistance, customMask))
+                {
+                    appeared = true;
+                    GameObject bullet = bulletPool.InstantiateFromPool(transform.position + (Vector3)randomAngle * bulletsDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
+                    bullet.GetComponent<BulletScript>().setBulletPool(bulletPool);
+                    bullet.GetComponent<BulletScript>().setTarget(target);
+                    i++;
+                }
+                else Debug.Log("Obstacle!");
             }
         }
+        GetComponent<Collider2D>().enabled = true;
     }
 
-    private bool IsObstacleInDirection(Vector2 randomAngle)
+    private bool IsObstacleInDirection(Vector2 angle, float distance, LayerMask mask)
     {
-        return Physics2D.Raycast(transform.position, randomAngle, spawnDistance, spawnMask);
+        Debug.DrawRay(transform.position, angle, Color.green, distance);
+        return Physics2D.Raycast(transform.position, angle, distance, mask);
     }
 
     public void Shrink()
@@ -135,4 +144,7 @@ public class NormalEnemyScript : EnemyScript
         yield return new WaitForSeconds(freezeTime);
         frozen = false;
     }
+
+    public override void setTarget(Transform t) { target = t; }
+    public override void setBulletPool(ObjectPool o) { bulletPool = o; }
 }

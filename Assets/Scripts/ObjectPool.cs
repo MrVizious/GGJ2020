@@ -35,7 +35,7 @@ public class ObjectPool : MonoBehaviour
             poolSize++;
         }
         GameObject newObject = pool[pool.Count - 1];
-        //newObject.transform.localScale = new Vector3(scale, scale, 0f);
+
         newObject.SetActive(true);
         newObject.transform.position = pos;
         newObject.transform.rotation = rot;
