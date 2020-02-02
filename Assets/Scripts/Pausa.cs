@@ -26,6 +26,9 @@ public class Pause : MonoBehaviour
                 // despausar y esconder menu
                 ResumeGame();
             }
+        } else if (Input.GetButtonDown("Circle"))
+        {
+            GameManager.getGameManager().ChangeScene("Menu");
         }
     }
 
