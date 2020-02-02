@@ -47,13 +47,14 @@ public class CleverEnemyScript : MonoBehaviour
 
     private void RotateTowardsTarget()
     {
-        if (Mathf.Abs(Vector2D.Distance(target.position, transform.position)) < maxDistanceToTarget)
+        Vector3 vectorToTarget;
+        if (Mathf.Abs(Vector2.Distance(target.position, transform.position)) < maxDistanceToTarget)
         {
-            Vector3 vectorToTarget = target.position - transform.position;
+            vectorToTarget = target.position - transform.position;
         }
         else
         {
-            Vector3 vectorToTarget = (target.position + target.up * targetDistance) - transform.position;
+            vectorToTarget = (target.position + target.up * targetDistance) - transform.position;
         }
 
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
