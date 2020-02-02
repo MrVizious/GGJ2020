@@ -99,12 +99,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
-  maxSize: 10
-  minSize: 0
+  maxSize: 1
+  minSize: 0.4
   shootButtonDown: 0
   invincible: 0
   bulletPool: {fileID: 0}
-  maxHealth: 0
+  maxHealth: 10
   currentHealth: 0
 --- !u!50 &1445826199387680933
 Rigidbody2D:

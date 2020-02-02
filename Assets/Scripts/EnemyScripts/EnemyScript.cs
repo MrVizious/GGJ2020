@@ -14,6 +14,8 @@ public class EnemyScript : MonoBehaviour
     [SerializeField]
     private ObjectPool bulletPool;
 
+    [SerializeField] private LevelManager levelManager;
+
     private bool frozen;
 
     LayerMask spawnMask;
@@ -68,6 +70,7 @@ public class EnemyScript : MonoBehaviour
         {
             InstantiateBullets();
             Destroy(this.gameObject);
+            levelManager.enemyKilled();
             return true;
         }
         return false;
