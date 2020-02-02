@@ -8,6 +8,8 @@ public class ObjectPool : MonoBehaviour
     private GameObject prefab;
     [SerializeField]
     private int poolSize;
+    [SerializeField]
+    private float scale;
     private List<GameObject> pool;
     private void Awake()
     {
@@ -19,6 +21,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < poolSize; i++)
         {
             pool.Add(Instantiate(prefab));
+            pool[i].transform.localScale = new Vector3(scale, scale, 0f);
             pool[i].SetActive(false);
         }
     }
@@ -32,6 +35,7 @@ public class ObjectPool : MonoBehaviour
             poolSize++;
         }
         GameObject newObject = pool[pool.Count - 1];
+        //newObject.transform.localScale = new Vector3(scale, scale, 0f);
         newObject.SetActive(true);
         newObject.transform.position = pos;
         newObject.transform.rotation = rot;

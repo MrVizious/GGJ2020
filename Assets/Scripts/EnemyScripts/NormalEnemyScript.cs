@@ -2,13 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CleverEnemyScript : EnemyScript
+public class NormalEnemyScript : EnemyScript
 {
     [SerializeField]
     private int currentHealth, maxHealth;
     [SerializeField]
-    private float speed, rotationSpeed, spawnDistance, maxDistanceToTarget;
-    private float freezeTime, targetDistance;
+    private float speed, rotationSpeed, spawnDistance, freezeTime;
     private Rigidbody2D rb;
     [SerializeField]
     Transform target;
@@ -28,11 +27,6 @@ public class CleverEnemyScript : EnemyScript
         frozen = false;
     }
 
-    private void OnEnable()
-    {
-        targetDistance = Random.Range(-maxDistanceToTarget, maxDistanceToTarget);
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {
@@ -47,18 +41,7 @@ public class CleverEnemyScript : EnemyScript
 
     private void RotateTowardsTarget()
     {
-        Vector3 vectorToTarget;
-        if (Mathf.Abs(Vector2.Distance(target.position, transform.position)) < maxDistanceToTarget / 3f)
-        {
-            vectorToTarget = target.position - transform.position;
-        }
-        else
-        {
-            vectorToTarget = (target.position + target.up * targetDistance) - transform.position;
-        }
-        Debug.DrawRay(transform.position, vectorToTarget, Color.green, 0.2f);
-        //Debug.DrawRay(transform.position, transform.up, Color.white, 0.2f);
-
+        Vector3 vectorToTarget = target.position - transform.position;
         float angle = Mathf.Atan2(vectorToTarget.y, vectorToTarget.x) * Mathf.Rad2Deg - 90f;
         Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, q, Time.deltaTime * rotationSpeed);
