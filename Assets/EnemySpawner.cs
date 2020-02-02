@@ -41,7 +41,7 @@ public class EnemySpawner : MonoBehaviour
             if (!IsObstacleInDirection(randomAngle, enemyDistance, customMask))
             {
                 appeared = true;
-                GameObject enemy = enemyPool.InstantiateFromPool(target.position + (Vector3)randomAngle * enemyDistance, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
+                GameObject enemy = enemyPool.InstantiateFromPool(target.position + (Vector3)randomAngle, Quaternion.Euler(0, 0, Random.Range(0f, 359f)));
                 enemy.GetComponent<EnemyScript>().setTarget(target);
                 enemy.GetComponent<EnemyScript>().setBulletPool(bulletPool);
                 enemiesOut++;

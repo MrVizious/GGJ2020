@@ -340,7 +340,7 @@ MonoBehaviour:
   killsGoal: 0
   enemyPool: {fileID: 1069416676}
   bulletPool: {fileID: 906364977}
-  baseSpawnTime: 4
+  baseSpawnTime: 2
   target: {fileID: 487964604}
 --- !u!4 &475654241
 Transform:
