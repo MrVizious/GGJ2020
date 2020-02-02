@@ -97,7 +97,7 @@ public class CleverEnemyScript : EnemyScript
             }
             else Debug.Log("Obstacle!");
         }
-        //GetComponent<Collider2D>().enabled = true;
+        GetComponent<Collider2D>().enabled = true;
     }
 
     public void InstantiateBullets()
